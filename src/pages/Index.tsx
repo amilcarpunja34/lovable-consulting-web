@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import ContactSection from "@/components/ContactSection";
+import ContactSection from "@/components/contact/ContactSection"; // Updated import path
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Shield } from "lucide-react";
@@ -47,6 +47,6 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Index;
