@@ -15,6 +15,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Save } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { Json } from "@/integrations/supabase/types";
 
 interface GeneralSettings {
   companyName: string;
@@ -72,13 +73,23 @@ const Settings = () => {
 
         if (socialError) throw socialError;
         
-        // Set form values
-        if (generalData) {
-          generalForm.reset(generalData.value as GeneralSettings);
+        // Set form values with proper type assertions
+        if (generalData && typeof generalData.value === 'object' && generalData.value !== null) {
+          const generalSettings = generalData.value as Record<string, string>;
+          generalForm.reset({
+            companyName: generalSettings.companyName || "",
+            email: generalSettings.email || "",
+            phone: generalSettings.phone || ""
+          });
         }
         
-        if (socialData) {
-          socialForm.reset(socialData.value as SocialSettings);
+        if (socialData && typeof socialData.value === 'object' && socialData.value !== null) {
+          const socialSettings = socialData.value as Record<string, string>;
+          socialForm.reset({
+            linkedin: socialSettings.linkedin || "",
+            instagram: socialSettings.instagram || "",
+            facebook: socialSettings.facebook || ""
+          });
         }
       } catch (error: any) {
         toast.error("Erro ao carregar configurações: " + error.message);
@@ -96,7 +107,7 @@ const Settings = () => {
       
       const { error } = await supabase
         .from("site_settings")
-        .update({ value: data })
+        .update({ value: data as unknown as Json })
         .eq("key", "general");
 
       if (error) throw error;
@@ -115,7 +126,7 @@ const Settings = () => {
       
       const { error } = await supabase
         .from("site_settings")
-        .update({ value: data })
+        .update({ value: data as unknown as Json })
         .eq("key", "social");
 
       if (error) throw error;
