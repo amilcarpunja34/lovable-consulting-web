@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Mail, Phone, MessageSquare, CalendarDays } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface FormData {
   nome: string;
@@ -41,7 +42,7 @@ export default function ContactSection() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -57,10 +58,22 @@ export default function ContactSection() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Save to Supabase
+      const { error } = await supabase.from("contact_forms").insert({
+        name: formData.nome,
+        email: formData.email,
+        company: formData.empresa,
+        phone: formData.telefone || null,
+        interest: formData.interesse,
+        message: formData.mensagem || null,
+      });
+
+      if (error) throw error;
+
       toast.success("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-      setIsSubmitting(false);
+      
+      // Reset form
       setFormData({
         nome: "",
         email: "",
@@ -69,9 +82,11 @@ export default function ContactSection() {
         interesse: "",
         mensagem: "",
       });
-    }, 1000);
-
-    // Note: In a real implementation with Supabase, you would add your API call here
+    } catch (error: any) {
+      toast.error("Erro ao enviar mensagem: " + error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
