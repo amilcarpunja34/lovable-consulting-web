@@ -41,7 +41,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <a href="#" className="text-2xl font-bold text-primary-blue dark:text-white">
-              Consulta<span className="text-primary-blue">Pro</span>
+              Agilmax<span className="text-primary-blue">Lda</span>
             </a>
           </div>
 

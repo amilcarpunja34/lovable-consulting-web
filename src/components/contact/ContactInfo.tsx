@@ -28,7 +28,7 @@ export default function ContactInfo() {
           </div>
           <div>
             <h4 className="font-bold text-slate-900 dark:text-white mb-1">Email</h4>
-            <p className="text-slate-600 dark:text-slate-300">contato@consultapro.com.br</p>
+            <p className="text-slate-600 dark:text-slate-300">contato@agilmax.com.br</p>
           </div>
         </div>
 
