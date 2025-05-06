@@ -9,6 +9,45 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      analysis_rules: {
+        Row: {
+          condicao: Json
+          id: number
+          mensagem: string
+          tipo: string
+        }
+        Insert: {
+          condicao: Json
+          id?: number
+          mensagem: string
+          tipo: string
+        }
+        Update: {
+          condicao?: Json
+          id?: number
+          mensagem?: string
+          tipo?: string
+        }
+        Relationships: []
+      }
+      channel_recommendations: {
+        Row: {
+          canal: string
+          condicao: Json
+          id: number
+        }
+        Insert: {
+          canal: string
+          condicao: Json
+          id?: number
+        }
+        Update: {
+          canal?: string
+          condicao?: Json
+          id?: number
+        }
+        Relationships: []
+      }
       contact_forms: {
         Row: {
           company: string
@@ -140,6 +179,69 @@ export type Database = {
         }
         Relationships: []
       }
+      scenarios: {
+        Row: {
+          canais: string[] | null
+          created_at: string
+          forcas: string[] | null
+          fraquezas: string[] | null
+          id: string
+          mensagem: string | null
+          nome: string
+          pontuacao: number
+          provincias: string[]
+          recursos: Json
+          segmentacao: Json
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          canais?: string[] | null
+          created_at?: string
+          forcas?: string[] | null
+          fraquezas?: string[] | null
+          id?: string
+          mensagem?: string | null
+          nome: string
+          pontuacao?: number
+          provincias: string[]
+          recursos: Json
+          segmentacao: Json
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          canais?: string[] | null
+          created_at?: string
+          forcas?: string[] | null
+          fraquezas?: string[] | null
+          id?: string
+          mensagem?: string | null
+          nome?: string
+          pontuacao?: number
+          provincias?: string[]
+          recursos?: Json
+          segmentacao?: Json
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      score_weights: {
+        Row: {
+          parametro: string
+          peso: number
+        }
+        Insert: {
+          parametro: string
+          peso: number
+        }
+        Update: {
+          parametro?: string
+          peso?: number
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           created_at: string
@@ -169,7 +271,30 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      calculate_scenario_score: {
+        Args: { recursos: Json; segmentacao: Json; provincias: string[] }
+        Returns: number
+      }
+      generate_recommended_channels: {
+        Args: { recursos: Json; segmentacao: Json; provincias: string[] }
+        Returns: string[]
+      }
+      generate_scenario_analysis: {
+        Args: {
+          recursos: Json
+          segmentacao: Json
+          provincias: string[]
+          pontuacao: number
+        }
+        Returns: {
+          forcas: string[]
+          fraquezas: string[]
+        }[]
+      }
+      jsonb_condition_met: {
+        Args: { condition: Json; data: Json }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
