@@ -1,6 +1,4 @@
 
-import { motion } from "framer-motion";
-
 interface TestimonialCardProps {
   testimonial: {
     id: number;
@@ -15,11 +13,8 @@ interface TestimonialCardProps {
 
 export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-100 dark:border-slate-700 m-3 h-full flex flex-col"
+    <div
+      className="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-100 dark:border-slate-700 m-3 h-full flex flex-col transform transition-transform hover:scale-[1.02]"
     >
       <div className="mb-4">
         <svg
@@ -72,6 +67,6 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
           </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

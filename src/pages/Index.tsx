@@ -1,6 +1,6 @@
 
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import HeroSection from "@/components/hero/HeroSection";
 import AboutSection from "@/components/about/AboutSection";
 import ServicesSection from "@/components/services/ServicesSection";

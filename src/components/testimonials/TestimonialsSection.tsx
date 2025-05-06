@@ -7,7 +7,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import TestimonialCard from "./TestimonialCard";
-import { motion } from "framer-motion";
 
 interface Testimonial {
   id: number;
@@ -72,18 +71,12 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="py-20 bg-white dark:bg-slate-900">
       <div className="container-section">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
+        <div className="text-center">
           <h2 className="section-title">O Que Dizem Nossos Clientes</h2>
           <p className="section-subtitle">
             Resultados reais de empresas que transformamos com nossas soluções
           </p>
-        </motion.div>
+        </div>
 
         <div className="mt-12">
           <Carousel

@@ -1,6 +1,5 @@
 
 import { ArrowRight, ChartBar, Calculator, Target, Settings, Smartphone, Database } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Service } from './ServicesSection';
 
 interface ServiceCardProps {
@@ -9,11 +8,6 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, onClick }: ServiceCardProps) {
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
-
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'chart':
@@ -34,9 +28,8 @@ export default function ServiceCard({ service, onClick }: ServiceCardProps) {
   };
 
   return (
-    <motion.div
-      variants={item}
-      className="service-card group cursor-pointer"
+    <div
+      className="service-card group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-100 dark:border-slate-700 transition-all hover:shadow-lg hover:border-primary-blue/30"
       onClick={onClick}
     >
       <div className="mb-4">{getIcon(service.icon)}</div>
@@ -53,6 +46,6 @@ export default function ServiceCard({ service, onClick }: ServiceCardProps) {
         <span>Saiba Mais</span>
         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
       </button>
-    </motion.div>
+    </div>
   );
 }

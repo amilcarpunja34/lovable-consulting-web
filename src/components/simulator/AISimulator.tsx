@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Zap, ArrowRight, CheckCircle } from "lucide-react";
+import { Zap, ArrowRight, CheckCircle, Calendar } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -334,18 +334,30 @@ export default function AISimulator({ onClose }: AISimulatorProps) {
         setIsProcessing(false);
         setCurrentStep(currentStep + 1);
         
-        // Log simulator usage to Supabase
-        logSimulationToSupabase();
+        // Log simulator usage to console instead of Supabase
+        // We'll re-enable this once the simulator_logs table is created
+        console.log('Simulation complete:', {
+          answers: answers,
+          result: getResult()
+        });
       }, 1500);
     }
   };
   
+  // This function would be used once the Supabase table is set up
   const logSimulationToSupabase = async () => {
     try {
-      await supabase.from('simulator_logs').insert({
+      // Since the table doesn't exist yet, we'll log to console instead
+      console.log('Would log to Supabase:', {
         answers: answers,
         result: getResult()
       });
+      
+      // This will be uncommented once the table exists
+      // await supabase.from('simulator_logs').insert({
+      //   answers_json: answers,
+      //   result_json: getResult()
+      // });
     } catch (error) {
       console.error('Error logging simulation:', error);
     }

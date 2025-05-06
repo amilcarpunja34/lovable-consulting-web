@@ -1,6 +1,5 @@
 
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
 
 export default function AboutSection() {
@@ -53,13 +52,7 @@ export default function AboutSection() {
           </div>
           
           <div className="order-1 lg:order-2 flex justify-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
+            <div className="relative">
               <div className="rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700">
                 <img 
                   src="/placeholder.svg" 
@@ -72,7 +65,7 @@ export default function AboutSection() {
               <div className="absolute -bottom-6 -right-6 bg-primary-blue rounded-full p-6 shadow-lg">
                 <Zap className="h-8 w-8 text-white" />
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

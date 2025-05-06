@@ -2,7 +2,6 @@
 import { useState } from "react";
 import ServiceCard from "./ServiceCard";
 import ServiceModal from "./ServiceModal";
-import { motion } from "framer-motion";
 
 export interface Service {
   id: number;
@@ -59,16 +58,6 @@ const servicesList: Service[] = [
 
 export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
 
   return (
     <section id="services" className="py-20 bg-slate-50 dark:bg-slate-800">
@@ -78,12 +67,8 @@ export default function ServicesSection() {
           Soluções personalizadas para impulsionar o crescimento e a eficiência do seu negócio
         </p>
         
-        <motion.div 
+        <div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
         >
           {servicesList.map((service) => (
             <ServiceCard 
@@ -92,7 +77,7 @@ export default function ServicesSection() {
               onClick={() => setSelectedService(service)}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
       
       <ServiceModal 
