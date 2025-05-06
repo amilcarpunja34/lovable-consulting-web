@@ -7,6 +7,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import TestimonialCard from "./TestimonialCard";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
 
 interface Testimonial {
   id: number;
@@ -68,15 +70,23 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSection() {
+  const isMobile = useIsMobile();
+  
   return (
     <section id="testimonials" className="py-20 bg-white dark:bg-slate-900">
       <div className="container-section">
-        <div className="text-center">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <h2 className="section-title">O Que Dizem Nossos Clientes</h2>
           <p className="section-subtitle">
             Resultados reais de empresas que transformamos com nossas soluções
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-12">
           <Carousel
@@ -88,7 +98,7 @@ export default function TestimonialsSection() {
           >
             <CarouselContent>
               {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/2">
+                <CarouselItem key={testimonial.id} className={isMobile ? "basis-full" : "md:basis-1/2 lg:basis-1/2"}>
                   <TestimonialCard testimonial={testimonial} />
                 </CarouselItem>
               ))}

@@ -1,6 +1,7 @@
 
 import { ArrowRight, ChartBar, Calculator, Target, Settings, Smartphone, Database } from 'lucide-react';
 import { Service } from './ServicesSection';
+import { motion } from 'framer-motion';
 
 interface ServiceCardProps {
   service: Service;
@@ -28,11 +29,23 @@ export default function ServiceCard({ service, onClick }: ServiceCardProps) {
   };
 
   return (
-    <div
-      className="service-card group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-100 dark:border-slate-700 transition-all hover:shadow-lg hover:border-primary-blue/30"
+    <motion.div
+      whileHover={{ 
+        y: -8,
+        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
+      }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className="service-card group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-100 dark:border-slate-700 transition-all"
       onClick={onClick}
     >
-      <div className="mb-4">{getIcon(service.icon)}</div>
+      <motion.div 
+        className="mb-4"
+        whileHover={{ scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 400 }}
+      >
+        {getIcon(service.icon)}
+      </motion.div>
       
       <h3 className="text-xl font-bold mb-2 text-slate-800 dark:text-white">
         {service.title}
@@ -42,10 +55,13 @@ export default function ServiceCard({ service, onClick }: ServiceCardProps) {
         {service.shortDescription}
       </p>
       
-      <button className="flex items-center text-primary-blue font-medium group-hover:text-blue-700 transition-all">
+      <motion.button 
+        className="flex items-center text-primary-blue font-medium group-hover:text-blue-700 transition-all"
+        whileHover={{ x: 5 }}
+      >
         <span>Saiba Mais</span>
         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }
