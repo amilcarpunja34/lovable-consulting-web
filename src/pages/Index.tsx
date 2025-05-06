@@ -6,24 +6,34 @@ import AboutSection from "@/components/about/AboutSection";
 import ServicesSection from "@/components/services/ServicesSection";
 import TestimonialsSection from "@/components/testimonials/TestimonialsSection";
 import ContactSection from "@/components/contact/ContactSection";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { pageTransition } from "@/utils/animationVariants";
 
 export default function Index() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+    <AnimatePresence mode="wait">
+      <motion.div 
+        className="flex min-h-screen flex-col"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageTransition}
       >
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <TestimonialsSection />
-        <ContactSection />
-      </motion.main>
-      <Footer />
-    </div>
+        <Navbar />
+        <motion.main
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex-grow"
+        >
+          <HeroSection />
+          <AboutSection />
+          <ServicesSection />
+          <TestimonialsSection />
+          <ContactSection />
+        </motion.main>
+        <Footer />
+      </motion.div>
+    </AnimatePresence>
   );
 }
